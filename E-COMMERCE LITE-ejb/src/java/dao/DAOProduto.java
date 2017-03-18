@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Classe DAO de persistencia de dados
  */
 package dao;
 
@@ -22,22 +20,17 @@ public class DAOProduto extends DAOBase{
 
     @Override
     public long inserir(Connection c, TOBase t) throws Exception {
-//        string com o comando sql para editar o banco de dados
-        String sql = null;
-  
-
+        
         //variavel com lista dos parametros
         List<Object> u = new ArrayList<Object>();
         
-        sql = "INSERT INTO PRODUTOS(NOME, DESCRICAO, IMAGEM, VALOR_ENTRADA, VALOR_SAIDA) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO PRODUTOS(NOME, DESCRICAO, IMAGEM, VALOR_ENTRADA, VALOR_SAIDA) VALUES (?, ?, ?, ?, ?)";
         u.add(((TOProduto)t).getNOME());
-//        u.add(((TOProduto)t).getIMAGEM2());
         u.add(((TOProduto)t).getDESCRICAO());
         u.add(((TOProduto)t).getIMAGEM());
         u.add(((TOProduto)t).getVALOR_ENTRADA());
         u.add(((TOProduto)t).getVALOR_SAIDA());
  
-                
         //passa por parametros a conexao e a lista de objetos da insercao
         return Data.executeUpdate(c, sql, u);
         
@@ -57,9 +50,10 @@ public class DAOProduto extends DAOBase{
             
             sql = "SELECT * FROM PRODUTOS ";
 
-            
+            //Chama a funcao de comunicacao com o banco
             rs = Data.executeQuery(c, sql, u);
             
+            //cria uma array de TOProdutos
             while (rs.next()){
                 TOProduto tc = new TOProduto(rs);
                 ja.put(tc.buscarJson());

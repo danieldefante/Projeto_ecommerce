@@ -1,14 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Classe responsavel pelos servicos rest do produto
  */
 package servicosRest;
 
 import bo.BOFactory;
 import dao.DAOProduto;
 import fw.redimencionarImage;
-import java.sql.Blob;
 import to.TOProduto;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -32,13 +29,10 @@ public class ServicoProduto {
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of ServicoProduto
-     */
     public ServicoProduto() {
     }
 
-
+    //metodo Rest que insere no banco de dados um novo produto
     @POST
     @Path("inserir")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,28 +43,16 @@ public class ServicoProduto {
         JSONObject k = new JSONObject(dataJson);
         
         TOProduto t = new TOProduto();
-        
-        
-//        Blob blob = null;
-//         
-//        byte[] decodedByte = k.getString("IMAGEM").getBytes();
-//        
-//        String s = new String(decodedByte);
-//        System.out.println(s); 
-//
-//        blob = new javax.sql.rowset.serial.SerialBlob(decodedByte);
-//        t.setIMAGEM(blob);
-
+        //atribui valores ao TOProduto
         t.setNOME(k.getString("NOME"));
-
+        t.setVALOR_ENTRADA(k.getDouble("VALOR_ENTRADA"));
+        t.setVALOR_SAIDA(50.5);
+        t.setDESCRICAO(k.getString("DESCRICAO"));
+        //chama a classe que redimenciona a imagem antes de atribuir ao TOProduto
         redimencionarImage r = new redimencionarImage();
         t.setIMAGEM(r.redimensionaImg(k.getString("IMAGEM")));
         
-        t.setVALOR_ENTRADA(k.getDouble("VALOR_ENTRADA"));
-        t.setVALOR_SAIDA(k.getDouble("VALOR_SAIDA"));
-        t.setDESCRICAO(k.getString("DESCRICAO"));
-        
-        
+        //Chama a classe de persistencia de dados no banco
         if(BOFactory.inserir(new DAOProduto(), t) > -1){
             j.put("sucesso", true);
             j.put("mensagem", "Produto cadastrado com sucesso!");
@@ -79,10 +61,10 @@ public class ServicoProduto {
             j.put("mensagem", "Erro em cadastrar o produto!");
         }
         
-  
         return j.toString();
     }
 
+    //metodo que lista os produtos do bando de dados
     @GET
     @Path("listar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -97,28 +79,10 @@ public class ServicoProduto {
             j.put("data", ja);
         }else{
             j.put("sucesso", false);
-            j.put("mensagem", "Erro em listar os produtos!");
+            j.put("mensagem", "Não contém lista de produtos!");
         }
-        
         
         return j.toString();
     }
-    
-    
-    @POST
-    @Path("testep")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String teste(String dataJson) throws Exception{
-    
-        JSONObject k = new JSONObject(dataJson);
-        
-        redimencionarImage r = new redimencionarImage();
-        
-        r.redimensionaImg(k.getString("IMAGEM"));
-        return "teste";
-    }
-    
-    
-
+   
 }

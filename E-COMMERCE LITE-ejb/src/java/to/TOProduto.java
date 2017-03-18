@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Classe de mapeamento do banco de dados
  */
 package to;
 
@@ -85,18 +83,15 @@ public class TOProduto extends TOBase{
     public TOProduto() {
     }
     
+    
+    //metodo retorna um TOProduto apartir do ResultSet
     public TOProduto (ResultSet rs) throws Exception{
         this.ID = rs.getLong("ID");
         this.NOME = rs.getString("NOME");
-        Blob blob = rs.getBlob("IMAGEM");
         
-//        BufferedReader in = new BufferedReader(new InputStreamReader(blob.getBinaryStream()));			
-//	this.IMAGEMString = in.readLine();
-
+        //pega o retorno Blob do result set e transforma em String
+        Blob blob = rs.getBlob("IMAGEM");
         InputStream out = blob.getBinaryStream(); 
-//        byte[] bytes = IOUtils.toByteArray(out);
-//        byte[] decodedByte = blob.getBytes(1L, (int) blob.length());
-
         String decodedImg = Base64.getEncoder().encodeToString(IOUtils.toByteArray(out));
         this.IMAGEMString = "data:image/png;base64,"+ decodedImg;
         
@@ -107,8 +102,9 @@ public class TOProduto extends TOBase{
         
     }
     
+    //metodo de retorno json
     public JSONObject buscarJson()throws Exception {
-        //variavel tipo json para retornar no metodo
+        
         JSONObject j = new JSONObject();
   
         //populando o objeto j

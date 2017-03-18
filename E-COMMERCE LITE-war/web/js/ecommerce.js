@@ -48,7 +48,7 @@ function requisicaoGet(url, callback) {
          },
          error: function() {
             
-             alerta("Alerta!", "Sem conexão com o servidor!");
+             alert("Sem conexão com o servidor!");
          }
      });
              
@@ -67,26 +67,33 @@ function listarProdutos(){
             listaProdutos = dadosRetorno.data;
 
             $.each(listaProdutos, function(i, valor){
-                $("#listaProdutos").append('<div class="text-center col-lg-3 col-md-4 col-xs-6  portfolio-item"><a value="'+valor.ID+'" class="itemProduto thumbnail portfolio-link" data-toggle="modal"><div class="caption"><div class="caption-content"><i class="fa fa-search-plus fa-3x"></i></div></div><div style="height: 30px;" ></div><img style="margin: auto;" src="'+valor.IMAGEM+'" class="img-responsive" alt="Cabin"><h3 class="text-muted">'+valor.NOME+'</h3><p class="text-muted">'+valor.VALOR_SAIDA+'</p><div hidden="" class="descricaoProduto">'+valor.DESCRICAO+'</div></a></div>');
+                $("#listaProdutos").append('<div class="text-center col-lg-3 col-md-4 col-xs-6  portfolio-item"><a value="'+valor.ID+'" class="itemProduto thumbnail portfolio-link" data-toggle="modal"><div class="caption"><div class="caption-content"><i class="fa fa-search-plus fa-3x"></i></div></div><div style="height: 30px;" ></div><img style="margin: auto;" src="'+valor.IMAGEM+'" height="50" width="50" alt="Cabin"><h3 class="text-muted">'+valor.NOME+'</h3><p class="text-muted">'+valor.VALOR_SAIDA+'</p><div hidden="" class="descricaoProduto">'+valor.DESCRICAO+'</div></a> <button style="margin-top: 15px;" type="button" id="buttonAdcionarCesta" class="btn btn-info"><i class="fa fa-shopping-basket"></i> &nbsp;<i class="fa fa-plus"></i></button>   </div>');
             });
         }else{
             alert(dadosRetorno.mensagem);
         }
     });
 
+$(document).on("click", "#buttonAdcionarCesta", function(evt){
+    abrirProduto($(this).parent("div").children("a"));
+    return false;
+});
+
 $(document).on("click", ".itemProduto", function(evt){
     
-    var produto = $(this);
-    $('#tituloModalAmostragem').empty().text(produto.children('h3').text()).attr("value", produto.attr("value"));
-    
-    $("#corpoModalAmostragem").empty().append('<img style="margin: auto;" src="'+produto.children("img").attr("src")+'" class="img-responsive" alt="Cabin"><p value="'+produto.children("p").text()+'" id="valorSaidaProduto"> Valor: '+produto.children("p").text()+'</p><p> Descrição: '+produto.children(".descricaoProduto").text()+'</p><div class=" text-left control-group col-lg-8 col-lg-offset-2"><label class="form-label" for="qtdProduto">Quantidade:</label><input type="number" class="form-control" value="1" id="qtdProduto" min="1"></div><button type="button" id="addCesta" class="btn btn-default"><i class="fa fa-shopping-basket"></i> Adicionar a cesta</button>');
-    
-    $("#modalAmostragem").modal('toggle');
-    
+    abrirProduto($(this));
     
     return false;
 });
 
+function abrirProduto(produto){
+    
+    $('#tituloModalAmostragem').empty().text(produto.children('h3').text()).attr("value", produto.attr("value"));
+    
+    $("#corpoModalAmostragem").empty().append('<img style="margin: auto;" src="'+produto.children("img").attr("src")+'" class="img-responsive" alt="Cabin"><p value="'+produto.children("p").text()+'" id="valorSaidaProduto"> Valor: '+produto.children("p").text()+'</p><p> Descrição: '+produto.children(".descricaoProduto").text()+'</p><div class=" text-left control-group col-lg-8 col-lg-offset-2 controls" style="padding-bottom:15px;"><label class="form-label" for="qtdProduto">Quantidade:</label><input type="number" class="form-control" value="1" id="qtdProduto" min="1"></div><button type="button" id="addCesta" class="btn btn-info"><i class="fa fa-shopping-basket"></i> Adicionar à cesta</button>');
+    
+    $("#modalAmostragem").modal('toggle');
+}
 $(document).on("click", "#addCesta", function(evt){
    
     var produto = {id: $('#tituloModalAmostragem').attr("value"),
