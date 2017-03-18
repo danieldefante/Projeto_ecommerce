@@ -5,6 +5,9 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>E-COMMERCE LITE-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library dirs="200">file.reference.json-java.jar</included-library>
+            <included-library dirs="200">file.reference.commons-io-2.5.jar</included-library>
+            <included-library dirs="200">file.reference.commons-io-2.5-javadoc.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>

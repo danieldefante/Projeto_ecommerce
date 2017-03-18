@@ -8,6 +8,52 @@ and open the template in the editor.
     Author     : daniel
 */
 
-.thumbnail{
-    background: #ccc;
+
+ @keyframes fa-blink {
+     0% { opacity: 1; }
+     25% { opacity: 0.25;}
+/*     50% { opacity: 0.5; }
+     75% { opacity: 0.75; }
+     100% { opacity: 0; }*/
+ }
+.fa-blink {
+   -webkit-animation: fa-blink 1s linear infinite;
+   -moz-animation: fa-blink 1s linear infinite;
+   -ms-animation: fa-blink 1s linear infinite;
+   -o-animation: fa-blink 1s linear infinite;
+   animation: fa-blink 1s linear infinite;
+   
+   
 }
+
+/*.thumb .thumbnail{
+    
+    background-color: #f3f3f3;
+
+}*/
+
+/*.thumbnail a :hover{
+    
+    filter: alpha(opacity:0.5);
+    -khtml-opacity: .50;
+    -ms-filter: alpha(opacity=50);
+    -moz-opacity: .50;
+    filter: alpha(opacity=50);
+    opacity: .50;
+
+}*/
+
+/*.thumbnail{
+    
+    background-color: #ccc;
+   filter: alpha(opacity:1);
+    -khtml-opacity: 1;
+    -ms-filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    filter: alpha(opacity=100);
+    opacity: 1;
+
+}*/
+
+
+    
