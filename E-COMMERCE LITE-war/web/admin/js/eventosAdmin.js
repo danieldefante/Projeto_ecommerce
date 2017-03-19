@@ -10,7 +10,17 @@ $(function() {
             },
             submitSuccess: function($form, event) {
                 requisicao(function(dadosRetorno) {
-                   alert(dadosRetorno.mensagem); 
+                   if(dadosRetorno.sucesso){
+                        $("#NovoNomeProduto").val("");
+                        $("#NovoValorEntrada").val("");
+                        $("#novoDescricao").val("");
+                        $("#inputImagemProduto").val("");
+                        $("#novoImagemProduto").prop("src", "").hide();
+                        alert(dadosRetorno.mensagem);
+                    }else{
+                        alert(dadosRetorno.mensagem); 
+                    }
+                     
                 });
                 event.preventDefault();
             },
