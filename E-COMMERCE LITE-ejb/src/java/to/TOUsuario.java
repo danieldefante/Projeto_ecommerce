@@ -5,7 +5,6 @@
  */
 package to;
 
-import java.sql.Blob;
 import java.sql.ResultSet;
 import org.json.JSONObject;;
 

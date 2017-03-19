@@ -39,19 +39,19 @@
                             <div style="font-size: 100px; color:#555;"><i class="fa fa-user" aria-hidden="true"></i></div>
                             <hr class="star-primary">
                             <h2>Entrar</h2>    
-                                <form name="entrar" id="formEntrar" novalidate>
+                                <form role="form" method="post" class="login" action="j_security_check" id="formLogin" novalidate>
                                     
                                     <div class="text-left row control-group">
                                         <div class=" form-group col-xs-12 floating-label-form-group controls">
                                             <label>Usuário:</label>
-                                            <input type="text" class="form-control" placeholder="Usuário:" id="usuarioLogin" required data-validation-required-message="Por favor, digite o usuário.">
+                                            <input type="text" class="form-control" placeholder="Usuário:" id="username" name="j_username" required data-validation-required-message="Por favor, digite o usuário.">
                                             <p class="help-block text-danger"></p>
                                         </div>
                                     </div>
                                     <div class="text-left row control-group">
                                         <div class="form-group col-xs-12 floating-label-form-group controls">
                                             <label>Senha:</label>
-                                            <input type="password" class="form-control" placeholder="Senha:" id="senhaLogin" required data-validation-required-message="Por favor, digite a senha.">
+                                            <input type="password" class="form-control" placeholder="Senha:" id="password" name="j_password" required data-validation-required-message="Por favor, digite a senha.">
                                             <p class="help-block text-danger"></p>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                     <div id="success"></div>
                                     <div class="row">
                                         <div class="form-group col-xs-12">
-                                            <button type="submit" class="btn btn-info btn-lg"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Entrar</button>
+                                            <button id="logar" name="submit" value="Login" class="btn btn-info btn-lg"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Entrar</button>
                                         </div>
                                     </div>
                                 </form>
