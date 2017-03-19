@@ -5,6 +5,7 @@ package servicosRest;
 
 import bo.BOFactory;
 import dao.DAOProduto;
+import dao.DAORateio;
 import fw.redimencionarImage;
 import to.TOProduto;
 import javax.ws.rs.core.Context;
@@ -17,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import to.TORateio;
 
 /**
  * REST Web Service
@@ -46,7 +48,13 @@ public class ServicoProduto {
         //atribui valores ao TOProduto
         t.setNOME(k.getString("NOME"));
         t.setVALOR_ENTRADA(k.getDouble("VALOR_ENTRADA"));
-        t.setVALOR_SAIDA(50.5);
+        
+        TORateio tr = new TORateio();
+        tr = (TORateio)BOFactory.buscar(new DAORateio());
+        
+        
+        
+        t.setVALOR_SAIDA(tr.retornoRateio());
         t.setDESCRICAO(k.getString("DESCRICAO"));
         //chama a classe que redimenciona a imagem antes de atribuir ao TOProduto
         redimencionarImage r = new redimencionarImage();

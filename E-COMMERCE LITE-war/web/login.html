@@ -12,19 +12,26 @@
     <title>Admin E-COMMERCE LITE</title>
 
     <!-- Bootstrap  CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/bootstrap.min.css" rel="stylesheet" media="screen" >
 
     <!-- Theme CSS -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
-    <link href="css/ecommerce.css" rel="stylesheet">
+    <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/freelancer.min.css" rel="stylesheet" media="screen" >
+    <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/ecommerce.css" rel="stylesheet" media="screen" >
 
     <!-- Fonts -->
-    <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/font-awesome-4.7.0/css/font-awesome.min.css" media="screen"  rel="stylesheet" type="text/css">
     
     <!-- jQuery -->
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="eventosLogin.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/sha256.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/eventosLogin.js"></script>
     
+    <script type="text/javascript">
+        window.onload = function(){
+            verificarSessao();
+        };
+            
+    </script>
     
 </head>
     <body>
@@ -33,66 +40,20 @@
         
             
             
-            <div class="row text-center">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <div style="font-size: 100px; color:#555;"><i class="fa fa-user" aria-hidden="true"></i></div>
-                            <hr class="star-primary">
-                            <h2>Entrar</h2>    
-                                <form role="form" method="post" class="login" action="j_security_check" id="formLogin" novalidate>
-                                    
-                                    <div class="text-left row control-group">
-                                        <div class=" form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Usuário:</label>
-                                            <input type="text" class="form-control" placeholder="Usuário:" id="username" name="j_username" required data-validation-required-message="Por favor, digite o usuário.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                    </div>
-                                    <div class="text-left row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Senha:</label>
-                                            <input type="password" class="form-control" placeholder="Senha:" id="password" name="j_password" required data-validation-required-message="Por favor, digite a senha.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div id="success"></div>
-                                    <div class="row">
-                                        <div class="form-group col-xs-12">
-                                            <button id="logar" name="submit" value="Login" class="btn btn-info btn-lg"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Entrar</button>
-                                        </div>
-                                    </div>
-                                </form>
-           
-                            
-                            
-                            
-                            
-                            <h5 ><a class="portfolio-link"  title="Esqueceu a senha" href="#"><i class="fa fa-commenting" aria-hidden="true"></i>&nbsp;Esqueceu a senha</a></h5>
-                            <br>
-                            <h5><a class="portfolio-link" title="Cadastrar" href="cadastro.html"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Criar uma conta</a></h5>
-                            <div style="font-size: 20px;" class="text-left" >
-                                <a href="index.html"><i class="fa fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            
-            
-           
-
-            
+            <div id="painelLogin" class="row text-center">
+                    
+            </div>
+   
         </div>
 
     <!-- Bootstrap JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="http://localhost:8080/E-COMMERCE_LITE-war/js/bootstrap.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="http://localhost:8080/E-COMMERCE_LITE-war/js/jqBootstrapValidation.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="js/freelancer.min.js"></script>
+    <script src="http://localhost:8080/E-COMMERCE_LITE-war/js/freelancer.min.js"></script>
         
     </body>
 </html>

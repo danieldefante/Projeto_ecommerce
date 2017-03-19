@@ -62,13 +62,37 @@ public class BOFactory {
     }
     
     
-    public static TOBase buscar(DAOBase d, String sql, List<Object> u, String metodo) throws Exception{
+    public static TOBase buscar(DAOBase d, List<Object> u) throws Exception{
         Connection c = null;
         
         try{
             c =  Data.openConnection();
             
-            return d.buscar(c, sql, u, metodo);
+            return d.buscar(c, u);
+        }finally{
+            c.close();
+        }
+    }
+    
+    public static TOBase buscar(DAOBase d, TOBase t) throws Exception{
+        Connection c = null;
+        
+        try{
+            c =  Data.openConnection();
+            
+            return d.buscar(c, t);
+        }finally{
+            c.close();
+        }
+    }
+    
+    public static TOBase buscar(DAOBase d) throws Exception{
+        Connection c = null;
+        
+        try{
+            c =  Data.openConnection();
+            
+            return d.buscar(c);
         }finally{
             c.close();
         }

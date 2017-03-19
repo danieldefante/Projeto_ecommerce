@@ -34,7 +34,15 @@ public class DAOBase {
     public void excluir(Connection c, String t) throws Exception{
     }
     
-    public TOBase buscar(Connection c, String sql, List<Object> u, String metodo) throws Exception{
+    public TOBase buscar(Connection c, List<Object> u) throws Exception{
+        return null;
+    }
+    
+    public TOBase buscar(Connection c, TOBase t) throws Exception{
+        return null;
+    }
+    
+    public TOBase buscar(Connection c) throws Exception{
         return null;
     }
         

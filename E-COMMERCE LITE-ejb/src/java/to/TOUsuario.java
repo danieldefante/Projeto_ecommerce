@@ -18,6 +18,7 @@ public class TOUsuario extends TOBase{
     public String senha;
     public String email;
     public String nome;
+    public String grupo;
 
     public String getUsuario() {
         return usuario;
@@ -51,16 +52,24 @@ public class TOUsuario extends TOBase{
         this.nome = nome;
     }
 
+    public String getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
+
     
 
     public TOUsuario() {
     }
     
     public TOUsuario (ResultSet rs) throws Exception{
-        this.usuario = rs.getString("usuario");
-        this.nome = rs.getString("nome");
-        this.email = rs.getString("email");
-        this.senha = rs.getString("senha");
+        this.usuario = rs.getString("USERNAME");
+        this.nome = rs.getString("NOME");
+        this.email = rs.getString("EMAIL");
+        this.grupo = rs.getString("GRUPO");
         
     }
     
@@ -72,7 +81,7 @@ public class TOUsuario extends TOBase{
         j.put("usuario", usuario);
         j.put("nome", nome);
         j.put("email", email);
-        j.put("senha", senha);
+        j.put("grupo", grupo);
         
         return j;
     }
