@@ -19,13 +19,13 @@ import to.TOBase;
 @Stateless
 public class DAOBase {
     
-    protected long idretorno;
+//    protected long idretorno;
 
     public void inserirIDString(Connection c, String t) throws Exception{
     }    
      
     public long inserir(Connection c, TOBase t) throws Exception{
-        return this.idretorno;
+        return 0;
     }    
     
     public void editar(Connection c, String t) throws Exception{
@@ -36,6 +36,10 @@ public class DAOBase {
     
     public TOBase buscar(Connection c, List<Object> u) throws Exception{
         return null;
+    }
+    
+    public int buscarRateio(Connection c) throws Exception{
+        return 0;
     }
     
     public TOBase buscar(Connection c, TOBase t) throws Exception{

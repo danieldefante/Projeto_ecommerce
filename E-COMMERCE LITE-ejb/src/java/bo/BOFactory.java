@@ -17,17 +17,6 @@ import java.util.List;
 public class BOFactory {
        
     
-    public static void inserirIDString(DAOBase d, String t) throws Exception{
-        Connection c = null;
-        
-        try{
-            c =  Data.openConnection();
-            d.inserirIDString(c, t);
-        }finally{
-            c.close();
-        }
-    }
-
     public static long inserir(DAOBase d, TOBase t) throws Exception{
         Connection c = null;
         
@@ -110,17 +99,31 @@ public class BOFactory {
         }
     }
     
-    public static JSONArray listar(DAOBase d, String t) throws Exception {
+    public static int buscarRateio(DAOBase d) throws Exception{
         Connection c = null;
         
         try{
             c =  Data.openConnection();
-            return d.listar(c, t);
+            
+            return d.buscarRateio(c);
         }finally{
             c.close();
-        }  
+        }
+    }
     
-    }   
+    
+    
+//    public static JSONArray listar(DAOBase d, String t) throws Exception {
+//        Connection c = null;
+//        
+//        try{
+//            c =  Data.openConnection();
+//            return d.listar(c, t);
+//        }finally{
+//            c.close();
+//        }  
+//    
+//    }   
        
 
 //    public static JSONArray listar(DAOBase d, String dataJson) throws Exception{

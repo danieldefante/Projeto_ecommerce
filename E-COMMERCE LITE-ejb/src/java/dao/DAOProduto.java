@@ -24,14 +24,13 @@ public class DAOProduto extends DAOBase{
         //variavel com lista dos parametros
         List<Object> u = new ArrayList<Object>();
         
-        String sql = "INSERT INTO PRODUTOS(NOME, DESCRICAO, IMAGEM, VALOR_ENTRADA, VALOR_SAIDA) VALUES (?, ?, ?, ?, ?)";
-        u.add(((TOProduto)t).getNOME());
-        u.add(((TOProduto)t).getDESCRICAO());
-        u.add(((TOProduto)t).getIMAGEM());
-        u.add(((TOProduto)t).getVALOR_ENTRADA());
-        u.add(((TOProduto)t).getVALOR_SAIDA());
+        String sql = "INSERT INTO PRODUTOS(NOME, DESCRICAO, IMAGEM, VALOR_CUSTO, VALOR_SAIDA) VALUES (?, ?, ?, ?, ?)";
+        u.add(((TOProduto)t).getNome());
+        u.add(((TOProduto)t).getDescricao());
+        u.add(((TOProduto)t).getImagem());
+        u.add(((TOProduto)t).getValor_custo());
+        u.add(((TOProduto)t).getValor_saida());
  
-        //passa por parametros a conexao e a lista de objetos da insercao
         return Data.executeUpdate(c, sql, u);
         
     }
@@ -64,6 +63,26 @@ public class DAOProduto extends DAOBase{
         }
         return ja;
     }
+
+    @Override
+    public int buscarRateio(Connection c) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(ID) AS QTD_PRODUTOS FROM PRODUTOS WHERE VALOR_CUSTO <> 0";
+        
+        try{
+            
+            rs = Data.executeQuery(c, sql);
+            
+            if(rs.next()){
+                return rs.getInt("QTD_PRODUTOS");
+            }else{
+                return 0;
+            }
+        }finally{
+            rs.close();
+        }
+    }
+    
     
     
     

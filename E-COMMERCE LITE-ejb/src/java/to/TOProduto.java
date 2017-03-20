@@ -16,68 +16,68 @@ import org.json.JSONObject;
  */
 public class TOProduto extends TOBase{
     
-    public long ID;
-    public String NOME;
-    public String IMAGEMString;
-    public double VALOR_SAIDA;
-    public double VALOR_ENTRADA;
-    public String DESCRICAO;
-    public Blob IMAGEM;
+    public long id;
+    public String nome;
+    public String imagem_string;
+    public double valor_saida;
+    public double valor_custo;
+    public String descricao;
+    public Blob imagem;
 
-    public long getID() {
-        return ID;
+    public long getId() {
+        return id;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getNOME() {
-        return NOME;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNOME(String NOME) {
-        this.NOME = NOME;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public double getVALOR_SAIDA() {
-        return VALOR_SAIDA;
+    public double getValor_saida() {
+        return valor_saida;
     }
 
-    public void setVALOR_SAIDA(double VALOR_SAIDA) {
-        this.VALOR_SAIDA = VALOR_SAIDA;
+    public void setValor_saida(double valor_saida) {
+        this.valor_saida = valor_saida;
     }
 
-    public String getDESCRICAO() {
-        return DESCRICAO;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDESCRICAO(String DESCRICAO) {
-        this.DESCRICAO = DESCRICAO;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getVALOR_ENTRADA() {
-        return VALOR_ENTRADA;
+    public double getValor_custo() {
+        return valor_custo;
     }
 
-    public void setVALOR_ENTRADA(double VALOR_ENTRADA) {
-        this.VALOR_ENTRADA = VALOR_ENTRADA;
+    public void setValor_custo(double valor_custo) {
+        this.valor_custo = valor_custo;
     }
 
-    public Blob getIMAGEM() {
-        return IMAGEM;
+    public Blob getImagem() {
+        return imagem;
     }
 
-    public void setIMAGEM(Blob IMAGEM) {
-        this.IMAGEM = IMAGEM;
+    public void setImagem(Blob imagem) {
+        this.imagem = imagem;
     }
 
-    public String getIMAGEMString() {
-        return IMAGEMString;
+    public String getImagem_string() {
+        return imagem_string;
     }
 
-    public void setIMAGEMString(String IMAGEMString) {
-        this.IMAGEMString = IMAGEMString;
+    public void setImagem_string(String imagem_string) {
+        this.imagem_string = imagem_string;
     }
 
     public TOProduto() {
@@ -86,21 +86,22 @@ public class TOProduto extends TOBase{
     
     //metodo retorna um TOProduto apartir do ResultSet
     public TOProduto (ResultSet rs) throws Exception{
-        this.ID = rs.getLong("ID");
-        this.NOME = rs.getString("NOME");
+        this.id = rs.getLong("ID");
+        this.nome = rs.getString("NOME");
         
         //pega o retorno Blob do result set e transforma em String
         Blob blob = rs.getBlob("IMAGEM");
         InputStream out = blob.getBinaryStream(); 
         String decodedImg = Base64.getEncoder().encodeToString(IOUtils.toByteArray(out));
-        this.IMAGEMString = "data:image/png;base64,"+ decodedImg;
+        this.imagem_string = "data:image/png;base64,"+ decodedImg;
         
 
-        this.VALOR_SAIDA = rs.getDouble("VALOR_SAIDA");
-        this.VALOR_ENTRADA = rs.getDouble("VALOR_ENTRADA");
-        this.DESCRICAO = rs.getString("DESCRICAO");
+        this.valor_saida = rs.getDouble("VALOR_SAIDA");
+        this.valor_custo = rs.getDouble("VALOR_CUSTO");
+        this.descricao = rs.getString("DESCRICAO");
         
     }
+    
     
     //metodo de retorno json
     public JSONObject buscarJson()throws Exception {
@@ -108,12 +109,12 @@ public class TOProduto extends TOBase{
         JSONObject j = new JSONObject();
   
         //populando o objeto j
-        j.put("ID", ID);
-        j.put("NOME", NOME);
-        j.put("IMAGEM", IMAGEMString);
-        j.put("VALOR_SAIDA", VALOR_SAIDA);
-        j.put("VALOR_ENTRADA", VALOR_ENTRADA);
-        j.put("DESCRICAO", DESCRICAO);
+        j.put("ID", id);
+        j.put("NOME", nome);
+        j.put("IMAGEM", imagem_string);
+        j.put("VALOR_SAIDA", valor_saida);
+        j.put("VALOR_ENTRADA", valor_custo);
+        j.put("DESCRICAO", descricao);
         
         return j;
     }

@@ -14,11 +14,12 @@ import org.json.JSONObject;;
  */
 public class TOUsuario extends TOBase{
     
-    public String usuario;
-    public String senha;
-    public String email;
-    public String nome;
-    public String grupo;
+    private String usuario;
+    private String senha;
+    private String email;
+    private String nome;
+    private String grupo;
+    
 
     public String getUsuario() {
         return usuario;
