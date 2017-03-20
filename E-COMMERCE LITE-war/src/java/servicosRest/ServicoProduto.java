@@ -5,7 +5,6 @@ package servicosRest;
 
 import bo.BOFactory;
 import dao.DAOProduto;
-import dao.DAORateio;
 import fw.redimencionarImage;
 import to.TOProduto;
 import javax.ws.rs.core.Context;
@@ -18,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import to.TORateio;
 
 /**
  * REST Web Service
@@ -45,20 +43,34 @@ public class ServicoProduto {
         JSONObject k = new JSONObject(dataJson);
         
         TOProduto t = new TOProduto();
+
         //atribui valores ao TOProduto
-        t.setNOME(k.getString("NOME"));
-        t.setVALOR_ENTRADA(k.getDouble("VALOR_ENTRADA"));
+        t.setNome(k.getString("nome"));
+        t.setValor_custo(k.getDouble("valor_custo"));
         
-        TORateio tr = new TORateio();
-        tr = (TORateio)BOFactory.buscar(new DAORateio());
-        
-        
-        
-        t.setVALOR_SAIDA(tr.retornoRateio());
-        t.setDESCRICAO(k.getString("DESCRICAO"));
+      
+        double despesas_totais;
+        if(k.getString("despesas_totais").equals("")){
+            despesas_totais = 400;
+        }else{
+            despesas_totais = k.getDouble("despesas_totais");
+        }
+        double margem_lucro;
+        if(k.getString("despesas_totais").equals("")){
+            margem_lucro = 0;
+        }else{
+            margem_lucro = k.getDouble("margem_lucro");
+        }
+
+        int qtd= BOFactory.buscarRateio(new DAOProduto());
+        double rateio = despesas_totais / qtd;
+
+        t.setValor_saida((rateio + k.getDouble("valor_custo"))*(1+margem_lucro/100));
+    
+        t.setDescricao(k.getString("descricao"));
         //chama a classe que redimenciona a imagem antes de atribuir ao TOProduto
         redimencionarImage r = new redimencionarImage();
-        t.setIMAGEM(r.redimensionaImg(k.getString("IMAGEM")));
+        t.setImagem(r.redimensionaImg(k.getString("imagem")));
         
         //Chama a classe de persistencia de dados no banco
         if(BOFactory.inserir(new DAOProduto(), t) > -1){

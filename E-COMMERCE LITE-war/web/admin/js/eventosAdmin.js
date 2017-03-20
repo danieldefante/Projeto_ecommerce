@@ -9,19 +9,21 @@ $(function() {
                 // the error messages to the user, log, etc.
             },
             submitSuccess: function($form, event) {
-                requisicao(function(dadosRetorno) {
-                   if(dadosRetorno.sucesso){
-                        $("#NovoNomeProduto").val("");
-                        $("#NovoValorEntrada").val("");
-                        $("#novoDescricao").val("");
-                        $("#inputImagemProduto").val("");
-                        $("#novoImagemProduto").prop("src", "").hide();
-                        alert(dadosRetorno.mensagem);
-                    }else{
-                        alert(dadosRetorno.mensagem); 
-                    }
-                     
-                });
+//                requisicao(function(dadosRetorno) {
+//                   if(dadosRetorno.sucesso){
+//                        $("#NovoNomeProduto").val("");
+//                        $("#NovoValorCusto").val("");
+//                        $("#novoDescricao").val("");
+//                        $("#inputImagemProduto").val("");
+//                        $("#novoImagemProduto").prop("src", "").hide();
+//                        alert(dadosRetorno.mensagem);
+//                    }else{
+//                        alert(dadosRetorno.mensagem); 
+//                    }
+//                     
+//                });
+
+                alert("proceguir");
                 event.preventDefault();
             },
             filter: function() {
@@ -34,10 +36,13 @@ $(function() {
 
 function requisicao(callback) {
   
-    produto = {NOME:$("#NovoNomeProduto").val(),
-             VALOR_ENTRADA:$("#NovoValorEntrada").val(),
-             DESCRICAO:$("#novoDescricao").val(),
-             IMAGEM:$("#novoImagemProduto").prop("src")};
+    produto = { nome:$("#NovoNomeProduto").val(),
+                valor_custo:$("#NovoValorCusto").val(),
+                descricao:$("#novoDescricao").val(),
+                imagem:$("#novoImagemProduto").prop("src"),
+                despesas_totais: $("#despesaTotais").val(),
+                margem_lucro: $("#margemLucro").val()
+            };
 
 
     $.ajax({
@@ -59,6 +64,23 @@ function requisicao(callback) {
 
 
 }
+
+
+$(document).on("click", "#novoProduto", function(){
+    $(this).addClass("active");
+    
+    if($("#formCadastroProduto").is(":visible")){
+        
+        
+            $("#formCadastroProduto").submit();
+        
+  
+        
+    }else{
+        $("#formCadastroProduto").fadeIn(400);
+    }
+    
+});
 
 
 $(document).on("change", "#inputImagemProduto", function(){

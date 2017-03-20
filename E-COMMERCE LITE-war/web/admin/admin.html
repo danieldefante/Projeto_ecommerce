@@ -40,7 +40,7 @@
                         <div style="font-size: 100px; color:#555;"><i class="fa fa-diamond" aria-hidden="true"></i>
                         </div>
                             <hr class="star-primary">
-                        <h2>Novo produto</h2>
+                        <h2>Adicionar produtos</h2>
                         
                         
                     </div>
@@ -52,7 +52,15 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="modal-body">
                         
-                        <form name="sentMessage" id="formCadastroProduto" novalidate>
+                        
+                        <ul  class="nav nav-tabs" style="margin-bottom: 10px;">
+                            <li id="novoProduto" role="presentation" class=""><a><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo</a>
+                            
+                            </li>
+
+                        </ul>
+                
+                        <form hidden="" name="sentMessage" class="" id="formCadastroProduto" novalidate>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Nome:</label>
@@ -62,8 +70,8 @@
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Valor de entrada:</label>
-                                    <input step="0.1" min="0.1" type="number" class="form-control" placeholder="Valor de entrada:" id="NovoValorEntrada" required data-validation-required-message="Por favor, digite o valor de entrada.">
+                                    <label>Preço de custo:</label>
+                                    <input step="0.1" min="0.1" type="number" class="form-control" placeholder="Preço de custo:" id="NovoValorCusto" required data-validation-required-message="Por favor, digite o valor de custo.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -81,6 +89,20 @@
                                     <p class="help-block text-danger"></p>
                                     <img id="novoImagemProduto" class="hidden img-responsive" src="" width="180" height="180" alt="imgCultivar"/>
                                     
+                                </div>
+                            </div>
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Despesa totais:</label>
+                                    <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Despesas totais:" id="despesaTotais">
+                                   
+                                </div>
+                            </div>
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Margem de lucro (%):</label>
+                                    <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Margem de lucro (%):" id="margemLucro">
+                                   
                                 </div>
                             </div>
                             <br>
