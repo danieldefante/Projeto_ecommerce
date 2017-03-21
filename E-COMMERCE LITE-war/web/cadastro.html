@@ -23,7 +23,8 @@
     
     <!-- jQuery -->
     <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/jquery.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/eventosLogin.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/sha256.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/E-COMMERCE_LITE-war/js/eventosCadastro.js"></script>
     
     
 </head>
@@ -32,38 +33,38 @@
 
             <div class="row text-center">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
+                        <div class="modal-body ">
                             <div style="font-size: 100px; color:#555;"><i class="fa fa-user-plus" aria-hidden="true"></i>
                             </div>
                             <hr class="star-primary">
                             <h2>Cadastro</h2>    
           
-                            <form name="sentMessage" id="cadastroForm" novalidate>
+                            <form name="cadastroU" class="text-left" id="cadastroForm" novalidate>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Nome</label>
-                                        <input type="text" class="form-control" placeholder="Nome" id="nome" required data-validation-required-message="Por favor, digite o nome.">
+                                        <label>Nome:</label>
+                                        <input type="text" class="form-control" placeholder="Nome:" id="nome" required data-validation-required-message="Por favor, digite o nome.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Por favor, digite o email.">
+                                        <label>Email:</label>
+                                        <input type="email" class="form-control" placeholder="Email:" id="email" required data-validation-required-message="Por favor, digite o email.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Usuário</label>
-                                        <input type="text" class="form-control" placeholder="Usuário" id="usuario" required data-validation-required-message="Por favor, digite o usuário.">
+                                        <label>Usuário:</label>
+                                        <input type="text" class="form-control" placeholder="Usuário:" id="usuario" required data-validation-required-message="Por favor, digite o usuário.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Senha</label>
-                                        <input type="password" class="form-control" placeholder="Senha" id="senha" required data-validation-required-message="Por favor, digite a senha.">
+                                        <label>Senha:</label>
+                                        <input type="password" class="form-control" placeholder="Senha:" id="senha" required data-validation-required-message="Por favor, digite a senha.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                 </div>

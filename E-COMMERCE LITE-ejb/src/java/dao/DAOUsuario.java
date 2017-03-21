@@ -49,5 +49,27 @@ public class DAOUsuario extends DAOBase{
         
     }
 
+    @Override
+    public long inserir(Connection c, TOBase t) throws Exception {
+        //variavel com lista dos parametros
+        List<Object> u = new ArrayList<Object>();
+        
+        String sql = "INSERT INTO USUARIO (NOME, EMAIL, USERNAME, SENHA) VALUES (?, ?, ?, ?)";
+        u.add(((TOUsuario)t).getNome());
+        u.add(((TOUsuario)t).getEmail());
+        u.add(((TOUsuario)t).getUsuario());
+        u.add(((TOUsuario)t).getSenha());
+ 
+        Data.executeUpdate(c, sql, u);
+        
+        u.clear();
+        sql = "INSERT INTO PAPEIS (GRUPO, USUARIO) VALUES (?, ?)";
+        u.add("usuarios");
+        u.add(((TOUsuario)t).getUsuario());
+        
+        return Data.executeUpdate(c, sql, u);
+    }
+
+    
     
 }

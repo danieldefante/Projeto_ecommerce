@@ -1,39 +1,23 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Script pagina inicial com eventos e metodos
  */
 
 
 $(".thumb")
     .on( "mouseenter", function() {
-//        $(this).css("filter", "alpha(opacity:0.5)");
-//        $(this).css("-khtml-opacity", ".50");
-//        $(this).css("-ms-filter", "alpha(opacity=50)");
-//        $(this).css("-moz-opacity", ".50");
-//        $(this).css("filter", "alpha(opacity=50)");
-//        $(this).css("opacity", ".50");
-//        
+
         $(this).children("a").children(".icones").addClass("fa-blink");
-//        $(this).addClass("fa-blink");
 
     })
     .on( "mouseleave", function() {
-//        $(this).css("filter", "alpha(opacity:1)");
-//        $(this).css("-khtml-opacity", ".1");
-//        $(this).css("-ms-filter", "alpha(opacity=100)");
-//        $(this).css("-moz-opacity", "1");
-//        $(this).css("filter", "alpha(opacity=100)");
-//        $(this).css("opacity", "1");
-        
 
         $(this).children("a").children(".icones").removeClass("fa-blink");
-//        $(this).removeClass("fa-blink");
+
     });
     
     
     
-    //function requisicao(url, envio, metodo){
+//function requisicao(url, envio, metodo){
 function requisicaoGet(url, callback) {
   
     $.ajax({
@@ -67,7 +51,7 @@ function listarProdutos(){
             listaProdutos = dadosRetorno.data;
 
             $.each(listaProdutos, function(i, valor){
-                $("#listaProdutos").append('<div class="text-center col-lg-3 col-md-4 col-xs-6  portfolio-item"><a value="'+valor.ID+'" class="itemProduto thumbnail portfolio-link" data-toggle="modal"><div class="caption"><div class="caption-content"><i class="fa fa-search-plus fa-3x"></i></div></div><div style="height: 30px;" ></div><img style="margin: auto;" src="'+valor.IMAGEM+'" height="50" width="50" alt="Cabin"><h3 class="text-muted">'+valor.NOME+'</h3><p class="text-muted">'+valor.VALOR_SAIDA+'</p><div hidden="" class="descricaoProduto">'+valor.DESCRICAO+'</div></a> <button style="margin-top: 15px;" type="button" id="buttonAdcionarCesta" class="btn btn-info"><i class="fa fa-shopping-basket"></i> &nbsp;<i class="fa fa-plus"></i></button>   </div>');
+                $("#listaProdutos").append('<div class="text-center col-lg-3 col-md-4 col-xs-6  portfolio-item"><a value="'+valor.ID+'" class="itemProduto thumbnail portfolio-link" data-toggle="modal"><div class="caption"><div class="caption-content"><i class="fa fa-search-plus fa-3x"></i></div></div><div style="height: 30px;" ></div><img style="margin: auto;" src="'+valor.IMAGEM+'" height="50" width="50" alt="Cabin"><h3 class="text-muted">'+valor.NOME+'</h3><p class="text-muted">'+valor.VALOR_SAIDA.toFixed(2)+'</p><div hidden="" class="descricaoProduto">'+valor.DESCRICAO+'</div></a> <button style="margin-top: 15px;" type="button" id="buttonAdcionarCesta" class="btn btn-info"><i class="fa fa-shopping-basket"></i> &nbsp;<i class="fa fa-plus"></i></button>   </div>');
             });
         }else{
             alert(dadosRetorno.mensagem);
@@ -94,6 +78,40 @@ function abrirProduto(produto){
     
     $("#modalAmostragem").modal('toggle');
 }
+
+$(document).on("click", "#pagamento", function(evt){
+    alert("Continuar ...");
+});
+
+$(document).on("click", ".excluirProdutoCesta", function(evt){
+
+    
+    var id = $(this).parent("spam").parent("td").parent("tr").attr("id");
+    var listaCesta = JSON.parse(sessionStorage.getItem("cestaCompras"));
+    var newListaCesta = [];
+    $.each(listaCesta, function(i, valor){
+ 
+        if(valor.id != id){
+            newListaCesta.push(valor);
+        }
+    });
+
+
+        if(newListaCesta.length > 0){
+            sessionStorage.setItem("cestaCompras", JSON.stringify(newListaCesta));
+        }else{
+            sessionStorage.removeItem("cestaCompras");
+            $("#corpoModalAmostragem").empty().append('<p>Sua cesta esta vazia!</p>');
+        }
+    
+
+    var tr = $(this).closest('tr');
+
+        tr.fadeOut(400, function() {
+          tr.remove();  
+    });
+});
+
 $(document).on("click", "#addCesta", function(evt){
    
     var produto = {id: $('#tituloModalAmostragem').attr("value"),
@@ -129,6 +147,66 @@ $(document).on("click", "#addCesta", function(evt){
     return false;
 });
 
+$(document).on("click", ".subtrairQtd", function(evt){
+    var linha = $(this).parent("td").parent("tr");
+    var id = linha.attr("id");
+    var listaCesta = JSON.parse(sessionStorage.getItem("cestaCompras"));
+    var newlistaCesta = [];  
+        $.each(listaCesta, function(i, valor){
+            if(valor.id == id){
+                
+                if(parseInt(valor.qtdProduto) > 1){
+                    valor.qtdProduto = (parseInt(valor.qtdProduto) - 1).toString();
+                    newlistaCesta.push(valor);
+                    linha.children("td:nth-child(2)").text(valor.qtdProduto);
+                    linha.children("td:nth-child(4)").text((parseFloat(valor.qtdProduto)* parseFloat(valor.valor_saida)).toFixed(2));
+                }else{
+            
+
+                    linha.fadeOut(400, function() {
+                        linha.remove();  
+                    });
+                }
+            }else{
+                newlistaCesta.push(valor);
+            }
+            
+        });
+
+
+
+        if(newlistaCesta.length > 0){
+            sessionStorage.setItem("cestaCompras", JSON.stringify(newlistaCesta));
+        }else{
+            sessionStorage.removeItem("cestaCompras");
+            $("#corpoModalAmostragem").empty().append('<p>Sua cesta esta vazia!</p>');
+        }
+
+    return false;
+});
+
+$(document).on("click", ".somarQtd", function(evt){
+    var linha = $(this).parent("td").parent("tr");
+    var id = linha.attr("id");
+    var listaCesta = JSON.parse(sessionStorage.getItem("cestaCompras"));
+    var newlistaCesta = [];  
+        $.each(listaCesta, function(i, valor){
+            if(valor.id == id){
+                valor.qtdProduto = (parseInt(valor.qtdProduto) + 1).toString();
+                newlistaCesta.push(valor);
+                linha.children("td:nth-child(2)").text(valor.qtdProduto);
+                linha.children("td:nth-child(4)").text((parseFloat(valor.qtdProduto)* parseFloat(valor.valor_saida)).toFixed(2));
+            }else{
+                newlistaCesta.push(valor);
+            }
+            
+        });
+
+        sessionStorage.setItem("cestaCompras", JSON.stringify(newlistaCesta));
+
+    return false;
+});
+
 $(document).on("click", "#cesta", function(evt){
  
     $('#tituloModalAmostragem').empty().append('<i class="fa fa-shopping-basket" aria-hidden="true"></i>');
@@ -136,20 +214,17 @@ $(document).on("click", "#cesta", function(evt){
 
     
     if(sessionStorage.getItem("cestaCompras")){
+        
         var listaCesta = [];
         var itens = '';
         listaCesta = JSON.parse(sessionStorage.getItem("cestaCompras"));
-        
         $.each(listaCesta, function(i, valor){
-            itens += '<tr><td>'+valor.nome+'</td><td>'+valor.qtdProduto+'</td><td>'+valor.valor_saida+'</td><td>'+parseFloat(valor.valor_saida) * parseFloat(valor.qtdProduto)+'</td><td><i class="fa fa-trash" aria-hidden="true"></i></td></tr>';
-    
-        });
-    
-        $("#corpoModalAmostragem").empty().append(' <div class="table-responsive text-left"><table class="table table-striped"><thead><tr><th>Produto</th><th>Unidade</th><th>Valor unitário</th><th>Valor Total</th><th></th></tr></thead><tbody>'+itens+'</tbody></table></div> ');
-   
-   
- 
+            itens += '<tr id="'+valor.id+'"><td>'+valor.nome+'</td><td>'+valor.qtdProduto+'</td><td>'+valor.valor_saida+'</td><td>'+(parseFloat(valor.valor_saida) * parseFloat(valor.qtdProduto)).toFixed(2)+'</td><td style="color:#000; cursor:pointer"><spam><i class="excluirProdutoCesta fa fa-trash" aria-hidden="true"></i></spam><spam class="subtrairQtd" style="margin-left:20px; margin-right:20px;"><i class=" fa fa-minus" aria-hidden="true"></i></spam><spam class="somarQtd"><i class=" fa fa-plus" aria-hidden="true"></i></spam></td></tr>';
 
+        });
+
+        $("#corpoModalAmostragem").empty().append(' <div class="table-responsive text-left"><table class="table table-striped"><thead><tr><th>Produto</th><th>Unidade</th><th>Valor unitário</th><th>Valor Total</th><th></th></tr></thead><tbody>'+itens+'</tbody></table><button id="pagamento" type="button" class="btn btn-info"><i class="fa fa-money" aria-hidden="true"></i>&nbsp;Proceguir pagamento</button></div> ');
+  
     }else{
         $("#corpoModalAmostragem").empty().append('<p>Sua cesta esta vazia!</p>');
     }

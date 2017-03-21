@@ -39,47 +39,50 @@ public class ServicoProduto {
     @Consumes(MediaType.APPLICATION_JSON)
     public String inserir(String dataJson) throws Exception{
         
+        
+        
         JSONObject j = new JSONObject();
         JSONObject k = new JSONObject(dataJson);
+        JSONArray listaProdutos = k.getJSONArray("data");
         
-        TOProduto t = new TOProduto();
+        System.out.println("tamanho--->"+listaProdutos.length());
+        System.out.println("tamanho--->"+((JSONObject) k.getJSONArray("data").get(0)).getString("nome"));
 
-        //atribui valores ao TOProduto
-        t.setNome(k.getString("nome"));
-        t.setValor_custo(k.getDouble("valor_custo"));
         
+        double rateio = k.getDouble("despesasGerais") / listaProdutos.length();
+        double margem = 1+(k.getDouble("margemLucro")/100);
       
-        double despesas_totais;
-        if(k.getString("despesas_totais").equals("")){
-            despesas_totais = 400;
-        }else{
-            despesas_totais = k.getDouble("despesas_totais");
-        }
-        double margem_lucro;
-        if(k.getString("despesas_totais").equals("")){
-            margem_lucro = 0;
-        }else{
-            margem_lucro = k.getDouble("margem_lucro");
-        }
-
-        int qtd= BOFactory.buscarRateio(new DAOProduto());
-        double rateio = despesas_totais / qtd;
-
-        t.setValor_saida((rateio + k.getDouble("valor_custo"))*(1+margem_lucro/100));
-    
-        t.setDescricao(k.getString("descricao"));
         //chama a classe que redimenciona a imagem antes de atribuir ao TOProduto
         redimencionarImage r = new redimencionarImage();
-        t.setImagem(r.redimensionaImg(k.getString("imagem")));
         
+        TOProduto t = new TOProduto();
+        double a;
+        
+        for (int i = 0; i < listaProdutos.length(); i++) {
+            System.out.println(i);
+            
+            //atribui valores ao TOProduto
+            t.setNome(((JSONObject) listaProdutos.get(i)).getString("nome"));
+            t.setDescricao(((JSONObject) listaProdutos.get(i)).getString("descricao"));
+            t.setValor_custo(((JSONObject) listaProdutos.get(i)).getDouble("valor_custo"));
+            
+            a = ((JSONObject) listaProdutos.get(i)).getDouble("valor_custo") + rateio;
+            
+            t.setValor_saida(a*margem);
+            t.setImagem(r.redimensionaImg(((JSONObject) listaProdutos.get(i)).getString("imagem")));
+            
+            BOFactory.inserir(new DAOProduto(), t);
+        }
+        
+   
         //Chama a classe de persistencia de dados no banco
-        if(BOFactory.inserir(new DAOProduto(), t) > -1){
+//        if(BOFactory.inserir(new DAOProduto(), t) > -1){
             j.put("sucesso", true);
             j.put("mensagem", "Produto cadastrado com sucesso!");
-        }else{
-            j.put("sucesso", false);
-            j.put("mensagem", "Erro em cadastrar o produto!");
-        }
+//        }else{
+//            j.put("sucesso", false);
+//            j.put("mensagem", "Erro em cadastrar o produto!");
+//        }
         
         return j.toString();
     }

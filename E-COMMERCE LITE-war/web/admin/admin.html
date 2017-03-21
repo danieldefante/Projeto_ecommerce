@@ -9,7 +9,7 @@
     <meta name="description" content="Teste DATACOPER">
     <meta name="author" content="Daniel Defante">
 
-    <title>Admin E-COMMERCE LITE</title>
+    <title>E-COMMERCE LITE</title>
 
     <!-- Bootstrap  CSS -->
     <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/bootstrap.min.css" rel="stylesheet">
@@ -53,14 +53,14 @@
                     <div class="modal-body">
                         
                         
-                        <ul  class="nav nav-tabs" style="margin-bottom: 10px;">
-                            <li id="novoProduto" role="presentation" class=""><a><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo</a>
+                        <ul  class="nav nav-tabs" id="listaNovosProdutos" style="margin-bottom: 10px;">
+                            <li class="novoProduto" role="presentation"><a><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo</a>
                             
                             </li>
 
                         </ul>
                 
-                        <form hidden="" name="sentMessage" class="" id="formCadastroProduto" novalidate>
+                        <form hidden="" name="cadastroP" class="" id="formCadastroProduto" novalidate>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Nome:</label>
@@ -87,41 +87,106 @@
                                     <label>Imagem:</label>
                                     <input type="file" accept="image/png" placeholder="Imagem" id="inputImagemProduto" required data-validation-required-message="Por favor, selecione um imagem.">
                                     <p class="help-block text-danger"></p>
-                                    <img id="novoImagemProduto" class="hidden img-responsive" src="" width="180" height="180" alt="imgCultivar"/>
-                                    
+     
+                                    <div id="divImgs">
+                                        
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Despesa totais:</label>
-                                    <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Despesas totais:" id="despesaTotais">
-                                   
-                                </div>
-                            </div>
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Margem de lucro (%):</label>
-                                    <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Margem de lucro (%):" id="margemLucro">
-                                   
-                                </div>
-                            </div>
+                            
                             <br>
                             <div id="successCadastro"></div>
                             <div class="row">
                                 <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-info btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar</button>
+                                    <button id="limparMemoria" type="button" class="btn btn-primary btn-lg"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Limpar</button>
+                                    <!--<button type="button" class=" novoProduto btn btn-primary btn-lg"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo</button>-->
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-xs-12">
+                                    <button id="salvarTodos" value="enviarFalse" type="button" class="btn btn-info btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar produto(s)</button>
+                                </div>
+                            </div>
+                            <hr>
                         </form>
-                            
                         
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalDespesas">Despesas totais</button>
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLucro">Margem de lucro</button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
         
+
         
+        
+        
+
+<!-- Modal lucro-->
+<div id="modalLucro" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Margem de lucro</h4>
+      </div>
+      <div class="modal-body">
+                            
+          
+        <div style="padding: 10px;" class="form-group floating-label-form-group controls">
+            <label>Margem de lucro (%):</label>
+            <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Margem de lucro (%):" id="margemLucro" required data-validation-required-message="Por favor, selecione a margem de lucro.">
+            <p class="help-block text-danger"></p>
+        </div>  
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button id="salvarmargemLucro" type="button" class="btn btn-default">OK</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal despesas-->
+<div id="modalDespesas" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Despesas totais</h4>
+      </div>
+      <div class="modal-body">
+          
+          
+          
+          <div style="padding: 10px;" class="form-group floating-label-form-group controls">
+            <label>Despesa totais:</label>
+            <input step="0.1" min="0.0" type="number" class="form-control" placeholder="Despesas totais:" id="despesaTotais" required data-validation-required-message="Por favor, selecione o valor da despesa total.">
+            <p class="help-block text-danger"></p>
+        </div>
+          
+          
+      </div>
+      <div class="modal-footer">
+        <button id="salverDespesasTotais" type="button" class="btn btn-default">OK</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
         
         
         

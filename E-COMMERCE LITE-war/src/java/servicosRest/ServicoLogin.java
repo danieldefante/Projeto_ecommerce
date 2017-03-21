@@ -64,4 +64,41 @@ public class ServicoLogin {
         
         return j.toString();
     }
+    
+    //metodo Rest que insere no banco de dados um novo usuario
+    @POST
+    @Path("inserir")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String inserir(String dataJson) throws Exception{
+        
+        
+        
+        JSONObject j = new JSONObject();
+        JSONObject k = new JSONObject(dataJson);
+        
+        
+        TOUsuario t = new TOUsuario();
+
+ 
+        t.setNome(k.getString("nome"));
+        t.setEmail(k.getString("email"));
+        t.setUsuario(k.getString("usuario"));
+        t.setSenha(k.getString("senha"));
+        
+        //Chama a classe de persistencia de dados no banco
+        if(BOFactory.inserir(new DAOUsuario(), t) > -1){
+            j.put("sucesso", true);
+            j.put("mensagem", "Usuário cadastrado com sucesso!");
+        }else{
+            j.put("sucesso", false);
+            j.put("mensagem", "Erro em cadastrar o usuário!");
+        }
+        
+        return j.toString();
+    }
+    
+    
+    
+    
 }
