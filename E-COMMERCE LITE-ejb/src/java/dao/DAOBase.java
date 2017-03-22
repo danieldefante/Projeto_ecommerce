@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Classe base e seus metodos sao sobrescrito em suas classes por heranca
  */
 package dao;
 
@@ -19,24 +17,10 @@ import to.TOBase;
 @Stateless
 public class DAOBase {
     
-//    protected long idretorno;
 
-    public void inserirIDString(Connection c, String t) throws Exception{
-    }    
-     
     public long inserir(Connection c, TOBase t) throws Exception{
         return 0;
     }    
-    
-    public void editar(Connection c, String t) throws Exception{
-    }
-    
-    public void excluir(Connection c, String t) throws Exception{
-    }
-    
-    public TOBase buscar(Connection c, List<Object> u) throws Exception{
-        return null;
-    }
     
     public int buscarRateio(Connection c) throws Exception{
         return 0;
@@ -53,13 +37,5 @@ public class DAOBase {
     public JSONArray listar(Connection c) throws Exception{
         return null;
     }
-    
-    public JSONArray listar(Connection c, String t) throws Exception{
-        return null;
-    }
-
-    //    public JSONArray listar(Connection c, String dataJson) throws Exception{
-//        return null;
-//    }
     
 }

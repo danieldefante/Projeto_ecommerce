@@ -1,5 +1,5 @@
 /*
- * Classe DAO de persistencia de dados
+ * Classe DAO de persistencia de dados da tabela produto
  */
 package dao;
 

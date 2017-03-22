@@ -15,7 +15,7 @@
 
     
     
-    <title>Ecommerce lite</title>
+    <title>E-COMMERCE LITE</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://localhost:8080/E-COMMERCE_LITE-war/css/bootstrap.min.css" rel="stylesheet">

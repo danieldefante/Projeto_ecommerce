@@ -1,5 +1,5 @@
 /*
- faz o crud de qualquer classe que herde de tobase e daobase
+ * Classe fabrica, faz o crud de qualquer classe que herde de tobase e daobase
  */
 package bo;
 
@@ -8,7 +8,6 @@ import to.TOBase;
 import java.sql.Connection;
 import org.json.JSONArray;
 import dao.DAOBase;
-import java.util.List;
 
 /**
  *
@@ -21,53 +20,19 @@ public class BOFactory {
         Connection c = null;
         
         try{
-            c =  Data.openConnection();
+            c =  Data.openConnectionJavaDB();
             return d.inserir(c, t);
         }finally{
             c.close();
         }
     }
-    
-    public static void editar(DAOBase d, String t) throws Exception{
-        Connection c = null;
-        
-        try{
-            c =  Data.openConnection();
-            d.editar(c, t);
-        }finally{
-            c.close();
-        }
-    }
 
-    public static void excluir(DAOBase d, String t) throws Exception{
-        Connection c = null;
-        
-        try{
-            c =  Data.openConnection();
-            d.excluir(c, t);
-        }finally{
-            c.close();
-        }
-    }
-    
-    
-    public static TOBase buscar(DAOBase d, List<Object> u) throws Exception{
-        Connection c = null;
-        
-        try{
-            c =  Data.openConnection();
-            
-            return d.buscar(c, u);
-        }finally{
-            c.close();
-        }
-    }
     
     public static TOBase buscar(DAOBase d, TOBase t) throws Exception{
         Connection c = null;
         
         try{
-            c =  Data.openConnection();
+            c =  Data.openConnectionJavaDB();
             
             return d.buscar(c, t);
         }finally{
@@ -79,7 +44,7 @@ public class BOFactory {
         Connection c = null;
         
         try{
-            c =  Data.openConnection();
+            c =  Data.openConnectionJavaDB();
             
             return d.buscar(c);
         }finally{
@@ -91,7 +56,7 @@ public class BOFactory {
         Connection c = null;
         
         try{
-            c =  Data.openConnection();
+            c =  Data.openConnectionJavaDB();
             
             return d.listar(c);
         }finally{
@@ -103,42 +68,12 @@ public class BOFactory {
         Connection c = null;
         
         try{
-            c =  Data.openConnection();
+            c =  Data.openConnectionJavaDB();
             
             return d.buscarRateio(c);
         }finally{
             c.close();
         }
     }
-    
-    
-    
-//    public static JSONArray listar(DAOBase d, String t) throws Exception {
-//        Connection c = null;
-//        
-//        try{
-//            c =  Data.openConnection();
-//            return d.listar(c, t);
-//        }finally{
-//            c.close();
-//        }  
-//    
-//    }   
-       
-
-//    public static JSONArray listar(DAOBase d, String dataJson) throws Exception{
-//        Connection c = null;
-//        
-//        try{
-//            c =  Data.openConnection();
-//            
-//            return d.listar(c, dataJson);
-//        }finally{
-//            c.close();
-//        }
-//    }
-
- 
-    
     
 }
